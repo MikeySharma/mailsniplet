@@ -210,7 +210,7 @@ export default {
                 if (this.getCookie('split_screen') === 'yes') {
                     this.isRightPanel = true;
                 } else if (this.getCookie('split_screen') === 'no') {
-                    this.isRightPanle = false;
+                    this.isRightPanel = false;
                 }
             } else {
                 this.isRightPanel = !this.isRightPanel;
