@@ -180,7 +180,7 @@ export default {
             document.querySelectorAll('*').forEach((item) => {
                 item.style.fontSize = `${this.fontSize}px`;
             })
-            this.setCookie('font_size', value);
+            this.setCookie('font_size', this.fontSize);
         },
         toggleScreenType(value) {
             if (value === 'mobile') {
