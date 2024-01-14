@@ -61,12 +61,10 @@ export default {
         if (this.getCookie('screen_type')) {
             this.toggleScreenType(this.getCookie('screen_type'))
         }
-        if (this.getCookie('split_screen') === 'yes') {
+        if (this.getCookie('split_screen')) {
             this.toggleScreen(true)
-        } 
-         if (this.getCookie('split_screen') === 'no') {
-            this.toggleScreen(false);
         }
+
         if (this.getCookie('mode')) {
             this.toggleMode(this.getCookie('mode'))
         }
@@ -209,7 +207,11 @@ export default {
         },
         toggleScreen(isCookie) {
             if (isCookie) {
-                this.isRightPanel = isCookie;
+                if (this.getCookie('split_screen') === 'yes') {
+                    this.isRightPanel = true;
+                } else if (this.getCookie('split_screen') === 'no') {
+                    this.isRightPanle = false;
+                }
             } else {
                 this.isRightPanel = !this.isRightPanel;
             }
@@ -306,7 +308,7 @@ const signOut = (name) => {
 }
 </script>
 <template>
-    <section class="panel-container" :class="{'filter blur-md' : isLoading}">
+    <section class="panel-container" :class="{ 'filter blur-md': isLoading }">
         <div id="left-panel" class="flex-grow">
             <main class="flex gap-[2.5vw] min-h-screen overflow-x-hidden"
                 :class="menuPosition === 'left' ? 'flex-row' : (menuPosition === 'right') ? 'flex-row-reverse' : '!gap-0'">
@@ -1166,7 +1168,8 @@ const signOut = (name) => {
             </main>
         </div>
     </section>
-    <div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" :class="{'hidden' : !isLoading}" id="loadingContainer">
+    <div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" :class="{ 'hidden': !isLoading }"
+        id="loadingContainer">
         <div class="border-t-4 border-blue-500 border-solid h-12 w-12 rounded-full animate-spin"></div>
     </div>
 </template>
