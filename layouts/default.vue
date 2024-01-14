@@ -63,7 +63,8 @@ export default {
         }
         if (this.getCookie('split_screen') === 'yes') {
             this.toggleScreen(true)
-        } else if (this.getCookie('split_screen') === 'no') {
+        } 
+         if (this.getCookie('split_screen') === 'no') {
             this.toggleScreen(false);
         }
         if (this.getCookie('mode')) {
