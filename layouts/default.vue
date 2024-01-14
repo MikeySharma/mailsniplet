@@ -19,6 +19,7 @@ export default {
             isRightPanel: false,
             mainSplitScreen: 'https://internetl.ink/static_html/icons/icon_single_pane_pink.svg',
             mode: '1',
+            isLoading: true,
         }
     },
     mounted() {
@@ -45,9 +46,46 @@ export default {
                 }
             });
         });
-
+        if (this.getCookie('menu_position')) {
+            this.toggleMenuPosition(this.getCookie('menu_position'))
+        }
+        if (this.getCookie('favicon')) {
+            this.toggleFavicon(this.getCookie('favicon'))
+        }
+        if (this.getCookie('font_family')) {
+            this.toggleFont(this.getCookie('font_family'))
+        }
+        if (this.getCookie('font_size')) {
+            this.toggleFontSize(this.getCookie('font_size'))
+        }
+        if (this.getCookie('screen_type')) {
+            this.toggleScreenType(this.getCookie('screen_type'))
+        }
+        if (this.getCookie('split_screen') === 'yes') {
+            this.toggleScreen(true)
+        } else if (this.getCookie('split_screen') === 'no') {
+            this.toggleScreen(false);
+        }
+        if (this.getCookie('mode')) {
+            this.toggleMode(this.getCookie('mode'))
+        }
+        this.isLoading = false;
     },
     methods: {
+        setCookie(cookieName, cookieValue) {
+            document.cookie = `${cookieName}=${cookieValue}; path=${location.pathname}`
+        },
+        getCookie(cookieName) {
+            const cookies = document.cookie.split(';');
+            for (const item of cookies) {
+                const [name, value] = item.split('=');
+                if (name.trim() === cookieName) {
+                    const cookieValue = decodeURIComponent(value)
+                    return cookieValue;
+                }
+            }
+            return null;
+        },
         toggleMenu() {
             this.isMenuHidden = !this.isMenuHidden;
             if (this.isMenuHidden) {
@@ -75,6 +113,7 @@ export default {
                 this.menuPosition = 'top';
                 this.mainMenuPosition = 'https://internetl.ink/static_html/icons/icon_menu_top_pink.svg'
             }
+            this.setCookie('menu_position', position)
         },
         toggleFavicon(favicon) {
             const faviconElem = document.querySelector('#dynamic-favicon')
@@ -111,6 +150,7 @@ export default {
                 this.faviconNo = '8';
                 this.mainFavicon = 'https://internetl.ink/static_html/icons/ew_favicon_light_4.svg'
             }
+            this.setCokie('favicon', favicon);
         },
         toggleFont(font) {
             const bodyElem = document.querySelector('body')
@@ -127,6 +167,7 @@ export default {
                 this.fontFamily = 'montserrat'
                 bodyElem.style.fontFamily = 'var(--montserrat)'
             }
+            this.setCookie('font_family', font);
         },
         toggleFontSize(value) {
             if (value === '+1') {
@@ -139,6 +180,7 @@ export default {
             document.querySelectorAll('*').forEach((item) => {
                 item.style.fontSize = `${this.fontSize}px`;
             })
+            this.setCookie('font_size', value);
         },
         toggleScreenType(value) {
             if (value === 'mobile') {
@@ -162,14 +204,22 @@ export default {
                 this.toggleFontSize(18);
                 this.mainScreenType = 'https://internetl.ink/static_html/icons/icon_screen_auto_detect_pink.svg'
             }
+            this.setCookie('screen_type', value);
         },
-        toggleScreen() {
-            this.isRightPanel = !this.isRightPanel;
+        toggleScreen(isCookie) {
+            if (isCookie) {
+                this.isRightPanel = isCookie;
+            } else {
+                this.isRightPanel = !this.isRightPanel;
+            }
             if (this.isRightPanel) {
                 this.mainSplitScreen = 'https://internetl.ink/static_html/icons/icon_dual_pane_pink.svg';
+                this.setCookie('split_screen', 'yes')
             } else {
-                this.mainSplitScreen = 'https://internetl.ink/static_html/icons/icon_single_pane_pink.svg'
+                this.mainSplitScreen = 'https://internetl.ink/static_html/icons/icon_single_pane_pink.svg';
+                this.setCookie('split_screen', 'no')
             }
+
         },
         toggleMode(value) {
             const documentBody = document.querySelector('body');
@@ -246,6 +296,7 @@ export default {
                 documentBody.style.setProperty('--border-dropdown-hover-item', '#D6FFF8');
                 documentBody.style.setProperty('--bg-menu', '#2DBFAE');
             }
+            this.setCookie('mode', value)
         }
     }
 }
@@ -254,12 +305,11 @@ const signOut = (name) => {
 }
 </script>
 <template>
-    <section class="panel-container">
+    <section class="panel-container" :class="{'filter blur-md' : isLoading}">
         <div id="left-panel" class="flex-grow">
             <main class="flex gap-[2.5vw] min-h-screen overflow-x-hidden"
                 :class="menuPosition === 'left' ? 'flex-row' : (menuPosition === 'right') ? 'flex-row-reverse' : '!gap-0'">
-                <aside class="w-fit menu    flex flex-col relative"
-                    :class="menuPosition === 'top' ? 'hidden' : ''">
+                <aside class="w-fit menu    flex flex-col relative" :class="menuPosition === 'top' ? 'hidden' : ''">
                     <img @click="toggleMenu()" class="w-[1.3vw] max-w-[2vw] absolute top-5 cursor-pointer"
                         :class="menuPosition === 'right' ? 'right-[102%] rotate-180' : 'left-[102%]'" :src="menuArrow"
                         alt="iconVMenu">
@@ -288,8 +338,7 @@ const signOut = (name) => {
                     </div>
                 </aside>
                 <section class="flex-grow flex flex-col gap-[0.75vw] items-center">
-                    <aside class="w-full menu   flex-row relative "
-                        :class="menuPosition === 'top' ? 'flex' : 'hidden'">
+                    <aside class="w-full menu   flex-row relative " :class="menuPosition === 'top' ? 'flex' : 'hidden'">
                         <img @click="toggleMenu()"
                             class="w-[1.3vw] max-w-[2vw] absolute left-5 cursor-pointer top-[102%] rotate-90"
                             :src="menuArrow" alt="iconVMenu">
@@ -689,8 +738,7 @@ const signOut = (name) => {
         <div id="right-panel" class="hidden flex-grow" :class="{ '!block': isRightPanel }">
             <main class="flex gap-[2.5vw] min-h-screen overflow-x-hidden"
                 :class="menuPosition === 'left' ? 'flex-row' : (menuPosition === 'right') ? 'flex-row-reverse' : '!gap-0'">
-                <aside class="w-fit menu    flex flex-col relative"
-                    :class="menuPosition === 'top' ? 'hidden' : ''">
+                <aside class="w-fit menu    flex flex-col relative" :class="menuPosition === 'top' ? 'hidden' : ''">
                     <img @click="toggleMenu()" class="w-[1.3vw] max-w-[2vw] absolute top-5 cursor-pointer"
                         :class="menuPosition === 'right' ? 'right-[102%] rotate-180' : 'left-[102%]'" :src="menuArrow"
                         alt="iconVMenu">
@@ -719,8 +767,7 @@ const signOut = (name) => {
                     </div>
                 </aside>
                 <section class="flex-grow flex flex-col gap-[0.75vw] items-center">
-                    <aside class="w-full menu   flex-row relative "
-                        :class="menuPosition === 'top' ? 'flex' : 'hidden'">
+                    <aside class="w-full menu   flex-row relative " :class="menuPosition === 'top' ? 'flex' : 'hidden'">
                         <img @click="toggleMenu()"
                             class="w-[1.3vw] max-w-[2vw] absolute left-5 cursor-pointer top-[102%] rotate-90"
                             :src="menuArrow" alt="iconVMenu">
@@ -1118,6 +1165,9 @@ const signOut = (name) => {
             </main>
         </div>
     </section>
+    <div class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" :class="{'hidden' : !isLoading}" id="loadingContainer">
+        <div class="border-t-4 border-blue-500 border-solid h-12 w-12 rounded-full animate-spin"></div>
+    </div>
 </template>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
@@ -1128,21 +1178,26 @@ const signOut = (name) => {
     --open_sans: 'Open Sans', sans-serif;
     --roboto: 'Roboto', sans-serif;
 }
+
 /* Color modes Here*/
 body {
     font-family: var(--lato);
     background-color: var(--body-bg-color, #2D3E50);
     color: var(--body-text-color, #C8D6E5);
 }
-.quick-pick-bar{
+
+.quick-pick-bar {
     background-color: var(--bg-quick-pick-bar, #1F2A36);
 }
-.dropdown-menu-dark{
+
+.dropdown-menu-dark {
     background-color: var(--bg-dropdown-menu, #35445A);
 }
-.menu{
+
+.menu {
     background-color: var(--bg-menu, #2F445A);
 }
+
 /*Color modes ends here*/
 
 .panel-container {
