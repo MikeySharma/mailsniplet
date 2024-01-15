@@ -1,8 +1,7 @@
 
 <script>
 export default {
-
-    data() {
+    data() { 
         return {
             isMenuHidden: false,
             isQuickPickBar: false,
@@ -551,7 +550,7 @@ const signOut = (name) => {
                             variant="solid">
                             Logout
                         </UButton>
-                        <p class="text-center mt-3">Mailsniplet V{{ '0.0.2' }}</p>
+                        <p class="text-center mt-3">Mailsniplet V{{ '0.0.5' }}</p>
                     </div>
                 </aside>
                 <section class="flex-grow flex flex-col gap-[0.75vw] items-center">
@@ -580,7 +579,7 @@ const signOut = (name) => {
                                 color="gray" variant="solid">
                                 Logout
                             </UButton>
-                            <p class="text-center">Mailsniplet V{{ '0.0.2' }}</p>
+                            <p class="text-center">Mailsniplet V{{ '0.0.5' }}</p>
                         </div>
                     </aside>
                     <slot />
@@ -980,7 +979,7 @@ const signOut = (name) => {
                             variant="solid">
                             Logout
                         </UButton>
-                        <p class="text-center mt-3">Mailsniplet V{{ '0.0.2' }}</p>
+                        <p class="text-center mt-3">Mailsniplet V{{ '0.0.5' }}</p>
                     </div>
                 </aside>
                 <section class="flex-grow flex flex-col gap-[0.75vw] items-center">
@@ -1010,7 +1009,7 @@ const signOut = (name) => {
                                 color="gray" variant="solid">
                                 Logout
                             </UButton>
-                            <p class="text-center">Mailsniplet V{{ '0.0.2' }}</p>
+                            <p class="text-center">Mailsniplet V{{ '0.0.5' }}</p>
                         </div>
                     </aside>
                     <slot />
