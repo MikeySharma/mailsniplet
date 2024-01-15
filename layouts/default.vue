@@ -27,7 +27,7 @@ export default {
             rightscreenType: 'auto_detect',
             rightmainScreenType: 'https://internetl.ink/static_html/icons/icon_screen_auto_detect_pink.svg',
             isRightPanel: false,
-            mainSplitScreen: 'https://internetl.ink/static_html/icons/icon_single_pane_pink.svg',
+            mainSplitScreen: 'https://internetl.ink/static_html/icons/icon_dual_pane_pink.svg',
             mode: '1',
             rightmode: '1',
             isLoading: true,
@@ -353,10 +353,10 @@ export default {
                 this.isRightPanel = !this.isRightPanel;
             }
             if (this.isRightPanel) {
-                this.mainSplitScreen = 'https://internetl.ink/static_html/icons/icon_dual_pane_pink.svg';
+                this.mainSplitScreen = 'https://internetl.ink/static_html/icons/icon_single_pane_pink.svg';
                 this.setCookie('split_screen', 'yes')
             } else {
-                this.mainSplitScreen = 'https://internetl.ink/static_html/icons/icon_single_pane_pink.svg';
+                this.mainSplitScreen = 'https://internetl.ink/static_html/icons/icon_dual_pane_pink.svg';
                 this.setCookie('split_screen', 'no')
             }
 
@@ -1015,7 +1015,7 @@ const signOut = (name) => {
                     </aside>
                     <slot />
                 </section>
-                <aside class="min-w-[4vw] lg:w-[7vw] w-[6vw] quick-pick-bar p-[0.25vw]">
+                <aside class="min-w-[4vw] lg:w-[4vw] w-[6vw]  quick-pick-bar p-[0.25vw]">
                     <div class="flex items-center flex-col gap-[0.75vw]">
                         <a href="https://internetl.ink/static_html/web_user_settings.html"
                             class="text-decoration-none text-reset w-[4vw]" data-bs-trigger="hover" data-bs-placement="left"
@@ -1121,87 +1121,7 @@ const signOut = (name) => {
                                     </li>
                                 </ul>
                             </div>
-                            <!-- different favicon -->
-                            <div class="btn-group dropstart">
-                                <a class="btn btn-icon p-0 text-decoration-none text-reset" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    <img :src="mainFavicon" class="main-img-favicon w-[4vw]" alt="Favicon Type" />
-                                </a>
-                                <ul class="dropdown-menu dropdown-mode dropdown-menu-dark text-center">
-                                    <li>
-                                        <a @click="toggleFavicon('1')" class="dropdown-item dropdown-item-favicon"
-                                            :class="{ 'active': faviconNo === '1' }" data-bs-toggle="tooltip"
-                                            data-bs-trigger="hover" data-bs-placement="top" data-mode="1"
-                                            data-bs-title="Click to activate Dark Favicon 1">
-                                            <img class="w-full p-1" data-mode="1"
-                                                src="https://internetl.ink/static_html/icons/ew_favicon_dark_1.svg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a @click="toggleFavicon('2')" class="dropdown-item dropdown-item-favicon"
-                                            :class="{ 'active': faviconNo === '2' }" data-bs-toggle="tooltip"
-                                            data-bs-trigger="hover" data-bs-placement="top" data-mode="2"
-                                            data-bs-title="Click to activate Dark Favicon 2">
-                                            <img class="w-full p-1" data-mode="2"
-                                                src="https://internetl.ink/static_html/icons/ew_favicon_dark_2.svg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a @click="toggleFavicon('3')" :class="{ 'active': faviconNo === '3' }"
-                                            class="dropdown-item dropdown-item-favicon" data-bs-toggle="tooltip"
-                                            data-bs-trigger="hover" data-bs-placement="top" data-mode="3"
-                                            data-bs-title="Click to activate Dark Favicon 3" id="3">
-                                            <img class="w-full p-1" data-mode="3"
-                                                src="https://internetl.ink/static_html/icons/ew_favicon_dark_3.svg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a @click="toggleFavicon('4')" class="dropdown-item dropdown-item-favicon"
-                                            :class="{ 'active': faviconNo === '4' }" data-bs-toggle="tooltip"
-                                            data-bs-trigger="hover" data-bs-placement="top" data-mode="4"
-                                            data-bs-title="Click to activate Dark Favicon 4">
-                                            <img class="w-full p-1" data-mode="4"
-                                                src="https://internetl.ink/static_html/icons/ew_favicon_dark_4.svg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a @click="toggleFavicon('5')" class="dropdown-item dropdown-item-favicon"
-                                            :class="{ 'active': faviconNo === '5' }" data-bs-toggle="tooltip"
-                                            data-bs-trigger="hover" data-bs-placement="top" data-mode="5"
-                                            data-bs-title="Click to activate Light Favicon 1">
-                                            <img class="w-full p-1" data-mode="5"
-                                                src="https://internetl.ink/static_html/icons/ew_favicon_light_1.svg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item dropdown-item-favicon" data-bs-toggle="tooltip"
-                                            :class="{ 'active': faviconNo === '6' }" @click="toggleFavicon('6')"
-                                            data-bs-trigger="hover" data-bs-placement="top" data-mode="6"
-                                            data-bs-title="Click to activate Light Favicon 2">
-                                            <img class="w-full p-1" data-mode="6"
-                                                src="https://internetl.ink/static_html/icons/ew_favicon_light_2.svg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item dropdown-item-favicon" data-bs-toggle="tooltip"
-                                            @click="toggleFavicon('7')" data-bs-trigger="hover" data-bs-placement="top"
-                                            data-mode="7" :class="{ 'active': faviconNo === '7' }"
-                                            data-bs-title="Click to activate Light Favicon 3">
-                                            <img class="w-full p-1" data-mode="7"
-                                                src="https://internetl.ink/static_html/icons/ew_favicon_light_3.svg" alt="">
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item dropdown-item-favicon" data-bs-toggle="tooltip"
-                                            @click="toggleFavicon('8')" data-bs-trigger="hover" data-bs-placement="top"
-                                            data-mode="8" :class="{ 'active': faviconNo === '8' }"
-                                            data-bs-title="Click to activate Light Favicon 4">
-                                            <img class="w-full p-1" data-mode="8"
-                                                src="https://internetl.ink/static_html/icons/ew_favicon_light_4.svg" alt="">
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
+                            <!-- Screen Type -->
                             <div class="btn-group dropstart">
                                 <a class="btn btn-icon p-0" data-bs-toggle="dropdown" aria-expanded="false">
                                     <img alt="Screen Type" :src="rightmainScreenType" class="main-img w-[4vw]" />
