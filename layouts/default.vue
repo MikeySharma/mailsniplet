@@ -1,8 +1,7 @@
 
 <script>
 export default {
-
-    data() {
+    data() { 
         return {
             isMenuHidden: false,
             isQuickPickBar: false,
