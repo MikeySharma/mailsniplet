@@ -226,6 +226,9 @@ export default {
             } else if (font === 'montserrat') {
                 this.fontFamily = 'montserrat'
                 bodyElem.style.fontFamily = 'var(--montserrat)'
+            }else if(font === 'avenir'){
+                this.fontFamily = 'avenir';
+                bodyElem.style.fontFamily = 'var(--avenir)'
             }
             this.setCookie('font_family', font);
         },
@@ -243,6 +246,9 @@ export default {
             } else if (font === 'montserrat') {
                 this.rightfontFamily = 'montserrat'
                 bodyElem.style.fontFamily = 'var(--montserrat)'
+            }else if(font === 'avenir'){
+                this.rightfontFamily = 'avenir';
+                bodyElem.style.fontFamily = 'var(--avenir)'
             }
             this.setCookie('font_family_right', font);
         },
@@ -551,7 +557,7 @@ const signOut = (name) => {
                             variant="solid">
                             Logout
                         </UButton>
-                        <p class="text-center mt-3">Mailsniplet V{{ '0.0.2' }}</p>
+                        <p class="text-center mt-3">Mailsniplet V{{ '0.0.5' }}</p>
                     </div>
                 </aside>
                 <section class="flex-grow flex flex-col gap-[0.75vw] items-center">
@@ -580,7 +586,7 @@ const signOut = (name) => {
                                 color="gray" variant="solid">
                                 Logout
                             </UButton>
-                            <p class="text-center">Mailsniplet V{{ '0.0.2' }}</p>
+                            <p class="text-center">Mailsniplet V{{ '0.0.5' }}</p>
                         </div>
                     </aside>
                     <slot />
@@ -901,6 +907,15 @@ const signOut = (name) => {
                                             <span class="w-full text-center" data-mode="montserrat">Montserrat</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a class="dropdown-item dropdown-item-family"
+                                            :class="{ 'active': fontFamily === 'avenir' }"
+                                            @click="toggleFont('avenir')" data-bs-toggle="tooltip"
+                                            data-bs-trigger="hover" data-bs-placement="left" data-mode="avenir"
+                                            data-bs-title="Click to activate Avenir">
+                                            <span class="w-full text-center" data-mode="avenir">Avenir</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <!-- forfont -->
@@ -980,7 +995,7 @@ const signOut = (name) => {
                             variant="solid">
                             Logout
                         </UButton>
-                        <p class="text-center mt-3">Mailsniplet V{{ '0.0.2' }}</p>
+                        <p class="text-center mt-3">Mailsniplet V{{ '0.0.5' }}</p>
                     </div>
                 </aside>
                 <section class="flex-grow flex flex-col gap-[0.75vw] items-center">
@@ -1010,7 +1025,7 @@ const signOut = (name) => {
                                 color="gray" variant="solid">
                                 Logout
                             </UButton>
-                            <p class="text-center">Mailsniplet V{{ '0.0.2' }}</p>
+                            <p class="text-center">Mailsniplet V{{ '0.0.5' }}</p>
                         </div>
                     </aside>
                     <slot />
@@ -1262,6 +1277,15 @@ const signOut = (name) => {
                                             <span class="w-full text-center" data-mode="montserrat">Montserrat</span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a class="dropdown-item dropdown-item-family"
+                                            :class="{ 'active': rightfontFamily === 'avenir' }"
+                                            @click="righttoggleFont('avenir')" data-bs-toggle="tooltip"
+                                            data-bs-trigger="hover" data-bs-placement="left" data-mode="avenir"
+                                            data-bs-title="Click to activate Avenir">
+                                            <span class="w-full text-center" data-mode="avenir">Avenir</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </div>
                             <!-- forfont -->
@@ -1322,12 +1346,18 @@ const signOut = (name) => {
 </template>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-
+@font-face {
+  font-family: 'AvenirNextRoundedProBold';
+  src: url('/fonts/avenir-next-rounded-pro-bold.otf') format('opentype'); 
+  font-weight: bold;
+  font-style: normal;
+}
 :root {
     --lato: 'Lato', sans-serif;
     --montserrat: 'Montserrat', sans-serif;
     --open_sans: 'Open Sans', sans-serif;
     --roboto: 'Roboto', sans-serif;
+    --avenir: 'AvenirNextRoundedProBold', sans-serif;
 }
 
 /* Color modes Here*/
